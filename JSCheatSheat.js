@@ -297,3 +297,86 @@ Array.prototype.reduceRight
 				foo.bar();  // "bax"
 
 
+
+// Objects
+
+// A condtructor makes an object LINKED TO its own prototype.
+
+// Prototype linking happens in two ways:
+//	1) Through the second step of the 'new' keyword
+//  2) Through Objec.create()
+
+// 3 ways to find out where an object's prototype points to:
+
+		ai.__proto__;
+		Object.getPrototypeOf(a1);
+		a1.constructor.prototype;
+
+// Ex 1
+	
+	function Foo(who) {
+		this.me = who;
+	}
+
+	Foo.prototype.identify = function() {
+		return "I am " + this.me;
+	};
+
+	function Bar(who) {
+		Foo.call(this, who);
+	}
+
+	// Bar.prototype = new Foo() is also a way but it also 
+	// calls Foo and adds the this.me property from Foo. 
+	// Or...
+	Bar.prototype = Object.create(Foo.prototype);
+	// Object.create() does the first two steps that the "new" 
+	// keywords does: 1) Create a new object, 2) link it.
+
+
+	Bar.prototype.speak = function() {
+		alert("Hello, " + this.identify() + ".");
+	};
+
+	var b1 = new Bar("b1");
+	var b2 = new Bar("b2");
+
+	b1.speak(); // alerts: 'Hello , Iam b1'
+	b2.speak(); // alerts: 'Hello , Iam b2'
+
+	// b1 linked --> Bar.prototype linked --> Foo.prototype
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
