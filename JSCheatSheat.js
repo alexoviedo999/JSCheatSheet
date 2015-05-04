@@ -312,7 +312,8 @@ Array.prototype.reduceRight
 		Object.getPrototypeOf(a1);
 		a1.constructor.prototype;
 
-// Ex 1
+
+// Ex 1 -- regular OOP
 	
 	function Foo(who) {
 		this.me = who;
@@ -348,12 +349,41 @@ Array.prototype.reduceRight
 
 
 
+// Ex 1 -- Using the OLOO (Objecst Linked to Other Objects) pattern:
+
+	// 1) Instead of using "new", use "Object.create("...");
+	// So, using the example above:
+		var b1 = new Bar("b1");
+		// becomes
+		var b1 = Object.create(Bar.prototype);
+		Bar.call(b1, "b1");
+
+	// 2) As long as you make the connection between objects using
+	// Object.create then you can drop the "Object.prototype" to 
+	// add methods.
 
 
 
+	// Ex 1 -- OL00
 
+	var Foo = {
+		init: function(who) {
+			this.me = who;
+		},
+		identify: function() {
+			return "I am " + this.me;
+		}
+	};
 
+	var Bar = Object.create(Foo);
 
+	Bar.speak = function() {
+		alert("Hello, " + this.identify() + ".")
+	};
+
+	var b1 = Object.create(Bar);
+	b1.init("b1");
+	b1.speak();
 
 
 
